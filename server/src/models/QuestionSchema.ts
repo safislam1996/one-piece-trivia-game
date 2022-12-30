@@ -5,7 +5,12 @@ const Schema=mongoose.Schema;
 
 const QuestionSchema=new Schema({
     question: {type: String,default:''},
-    options: [String]
+    options: [
+       {
+        answer:String,
+        isCorrect:Boolean
+       }
+    ]
 })
 const QuestionModel=mongoose.model("Question",QuestionSchema)
 
