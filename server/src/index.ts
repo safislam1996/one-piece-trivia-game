@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import Question from "./models/QuestionSchema";
 const app=express();
 
+app.use(express.json())
 const PORT=5000;
 
 mongoose.set('strictQuery', true);
@@ -14,12 +15,13 @@ mongoose.connect("mongodb+srv://one_piece_trivia:7JaV6Yyvu4gpzp0a@cluster0.nt8dm
 
 app.post('/questions',async (req:Request,res:Response)=>{
     const newQuestion=new Question({
-        question:'What is the ONE PIECE?',
-        options:['Luffy\'s Kid','Nothing','Kaido']
-       
+        question:req.body.question,
+        options: req.body.options
     })
+
     const createdQuestion=await newQuestion.save()
     res.json(createdQuestion)
+ 
 })
 
 app.get('/',(req:Request,res:Response)=>{
